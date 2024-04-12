@@ -1,0 +1,28 @@
+name: Run Linting Test
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  
+
+jobs:
+  build:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Ensures you have the full git history
+
+    - name: Super-linter
+      uses: super-linter/super-linter@v6.2.0
+      continue-on-error: true
+      env:
+        DEFAULT_BRANCH: develop
+        VALIDATE_ALL_CODEBASE: false
+        VALIDATE_PYTHON_BLACK: true
+        VALIDATE_PYTHON_ISORT: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
