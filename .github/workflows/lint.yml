@@ -25,4 +25,4 @@ jobs:
         VALIDATE_PYTHON_BLACK: true
         VALIDATE_PYTHON_ISORT: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+         
