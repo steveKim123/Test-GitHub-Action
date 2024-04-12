@@ -6,7 +6,7 @@ from .models import (
 )
 from simple_history.admin import SimpleHistoryAdmin
 
-@admin.register(EntityType)
+@admin.register(EntityType) 
 class EntityTypeAdmin(admin.ModelAdmin):
     list_display = ('id','name', 'created_date',)
 
