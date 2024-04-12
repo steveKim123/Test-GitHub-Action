@@ -29,7 +29,7 @@ class ResourceAdmin(SimpleHistoryAdmin):
 @admin.register(Container)
 class ContainerAdmin(SimpleHistoryAdmin):
     list_display = (
-        'id', 'type', 'origin', 'guid', 'status',
+        'id', 'type', 'origin', 'guid', 'status', 
         'published_date', 'created_date', 'updated_date',
     )
     readonly_fields = ('hard_lock_id', 'soft_lock_id')
