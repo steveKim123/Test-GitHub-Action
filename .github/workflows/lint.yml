@@ -1,24 +1,25 @@
-name: Lint
-on:
-  pull_request:
+name: Run Linting Test
+
+on: [push]
+
 jobs:
-  run-linters:
-    name: Run linters
+  build:
+    name: Lint
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Ensures you have the full git history
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.9' 
-
-      - name: Install Python dependencies
-        run: pip install black flake8
-
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          black: true
-          flake8: true
+    - name: Super-linter
+      uses: super-linter/super-linter@v6.2.0
+      continue-on-error: true
+      env:
+        DEFAULT_BRANCH: develop
+        VALIDATE_ALL_CODEBASE: false
+        VALIDATE_PYTHON_BLACK: true
+        VALIDATE_PYTHON_ISORT: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
