@@ -13,8 +13,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Ensures you have the full git history
+      #with:
+        #fetch-depth: 0  # Ensures you have the full git history
 
     - name: Super-linter
       uses: super-linter/super-linter@v6.2.0
