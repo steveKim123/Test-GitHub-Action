@@ -22,7 +22,6 @@ jobs:
     - name: Set up environment variable for base branch
       run: |
         echo "DEFAULT_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-        echo "DEFAULT_BRANCH set to $DEFAULT_BRANCH"
 
     - name: Run Super-linter
       uses: super-linter/super-linter@v6.2.0
@@ -34,4 +33,3 @@ jobs:
         VALIDATE_PYTHON_ISORT: true
         #VALIDATE_PYTHON_FLAKE8: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PYTHON_BLACK_CONFIG_FILE: pyproject.toml
