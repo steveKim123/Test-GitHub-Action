@@ -21,4 +21,6 @@ jobs:
         VALIDATE_ALL_CODEBASE: false
         VALIDATE_PYTHON_BLACK: true
         VALIDATE_PYTHON_ISORT: true
+        # To report GitHub Actions status checks
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
