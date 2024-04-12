@@ -28,7 +28,7 @@ jobs:
       uses: super-linter/super-linter@v6.2.0
       continue-on-error: true
       env:
-        DEFAULT_BRANCH: develop 
+        DEFAULT_BRANCH: ${{ env.DEFAULT_BRANCH }} 
         VALIDATE_ALL_CODEBASE: false
         VALIDATE_PYTHON_BLACK: true
         VALIDATE_PYTHON_ISORT: true
