@@ -2,10 +2,10 @@ from django.contrib import admin
 from simple_history.admin import SimpleHistoryAdmin
 
 import uuid
-import calendar
 
 from .models import (
     EntityType, Tag, Resource, ResourceTag,
     Container, ContainerRelationship, Segment, Schema
 )
-import time
+import time  
+import calendar 
