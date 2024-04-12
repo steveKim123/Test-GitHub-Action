@@ -15,6 +15,9 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0 # Ensures you have the full git history
+  
+    - name: Display the contents of pyproject.toml
+      run: cat pyproject.toml
 
     - name: Set up environment variable for base branch
       run: |
