@@ -21,7 +21,7 @@ jobs:
       continue-on-error: true
       env:
         DEFAULT_BRANCH: develop
-        VALIDATE_ALL_CODEBASE: false
+        VALIDATE_ALL_CODEBASE: true
         VALIDATE_PYTHON_BLACK: true
         VALIDATE_PYTHON_ISORT: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
