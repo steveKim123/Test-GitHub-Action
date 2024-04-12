@@ -1,8 +1,6 @@
 name: Run Linting Test
 
-on:
-  pull_request:
-    types: [opened, reopened, synchronize]
+on: [push]
 
 jobs:
   build:
@@ -13,21 +11,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        fetch-depth: 2  # Minimal depth to retrieve base branch info
-    
-    - name: Determine Base Branch
-      run: |
-        echo "BASE_BRANCH=$(git rev-parse --abbrev-ref HEAD^2)" >> $GITHUB_ENV
-      shell: bash
-
-    - name: Display Base Branch
-      run: echo "The base branch of this PR is ${{ env.BASE_BRANCH }}"
+        fetch-depth: 0  # Ensures you have the full git history
 
     - name: Super-linter
       uses: super-linter/super-linter@v6.2.0
       continue-on-error: true
       env:
-        DEFAULT_BRANCH: ${{ env.BASE_BRANCH }}
-        VALIDATE_ALL_CODEBASE: false
-        VALIDATE_PYTHON_FLAKE8: true
-        VALIDATE_PYTHON_ISORT: true
+      DEFAULT_BRANCH: develop
+      VALIDATE_ALL_CODEBASE: true
+      VALIDATE_PYTHON_BLACK: true
+      VALIDATE_PYTHON_ISORT: true
