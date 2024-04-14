@@ -1,5 +1,5 @@
 [tool.black]
-line-length = 1
+line-length = 79
 target-version = ['py39']  # Update as per your Python version
 include = '\.pyi?$'
 exclude = '''
