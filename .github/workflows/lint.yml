@@ -26,7 +26,6 @@ jobs:
 
     - name: Super-linter
       uses: super-linter/super-linter@v6.2.0
-      continue-on-error: true
       env:
         DEFAULT_BRANCH: develop 
         VALIDATE_ALL_CODEBASE: false
