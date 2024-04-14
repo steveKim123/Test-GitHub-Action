@@ -6,30 +6,28 @@ on:
   
 
 jobs:
-  build:
-    name: Lint
+  lint:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        fetch-depth: 0  # Ensures you have the full git history
+        python-version: '3.8'
 
-    - name: Set up environment variable for base branch
+    - name: Install dependencies
       run: |
-        echo "DEFAULT_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-        echo "DEFAULT_BRANCH set to $DEFAULT_BRANCH"
+        python -m pip install --upgrade pip
+        pip install flake8 black isort
 
-    - name: Print DEFAULT_BRANCH
-      run: echo "The DEFAULT_BRANCH is $DEFAULT_BRANCH"
+    - name: Run Flake8
+      run: flake8 .
 
-    - name: Super-linter
-      uses: super-linter/super-linter@v6.2.0
-      continue-on-error: true
-      env:
-        DEFAULT_BRANCH: develop 
-        VALIDATE_ALL_CODEBASE: false
-        VALIDATE_PYTHON_BLACK: true
-        VALIDATE_PYTHON_ISORT: true
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Run Black
+      run: black --check .
+
+    - name: Run isort
+      run: isort . --check-only
