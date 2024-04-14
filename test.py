@@ -1,48 +1,9 @@
-from django.contrib import admin
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.signals import request_finished
+from django.db import models, transaction
 
-from .models import (
-    EntityType, Tag, Resource, ResourceTag,
-    Container, ContainerRelationship, Segment,
-)
-from simple_history.admin import SimpleHistoryAdmin
+from django.dispatch import receiver
+from django_elasticsearch_dsl.registries import registry
+from django_elasticsearch_dsl.signals import BaseSignalProcessor
 
-@admin.register(EntityType)  
-class EntityTypeAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'created_date',)
-
-
-@admin.register(Segment)
-class SegmentTypeAdmin(admin.ModelAdmin):
-    list_display = ('id','guid', 'label','value', 'created_date',)
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
-    list_display = ('value', 'label', 'type', 'origin', 'created_date',)
-
-@admin.register(Resource)
-class ResourceAdmin(SimpleHistoryAdmin):
-    list_display = (
-        'id', 'type', 'origin', 'uri', 'status',
-        'created_date', 'updated_date',
-    )
-
-@admin.register(Container)
-class ContainerAdmin(SimpleHistoryAdmin):
-    list_display = (
-        'id', 'type', 'origin', 'guid', 'status',
-        'published_date', 'created_date', 'updated_date',
-    )
-    readonly_fields = ('hard_lock_id', 'soft_lock_id')
-
-@admin.register(ContainerRelationship)
-class ContainerRelationshipAdmin(admin.ModelAdmin):
-    list_display = ('from_container', 'to_container', 'order', 'created_date')
-    list_select_related = ('from_container__type', 'to_container__type',)
-    raw_id_fields = ('from_container', 'to_container',)
-
-@admin.register(ResourceTag)
-class ResourceTagAdmin(admin.ModelAdmin):
-    list_display = ('value', 'label', 'origin', 'created_date')
-
-#@admin.register(Container, SimpleHistoryAdmin)
-#@admin.register(Resource, SimpleHistoryAdmin)
+from .utilities import es_delete_on_commit, es_update_on_commit, write_es_changes
