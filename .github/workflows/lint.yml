@@ -6,26 +6,30 @@ on:
   
 
 jobs:
-  lint:
+  build:
     name: Lint
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
-        fetch-depth: 0 # Ensures you have the full git history
+        fetch-depth: 0  # Ensures you have the full git history
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14' # Node.js 14 is recommended by MegaLinter documentation
+    - name: Set up environment variable for base branch
+      run: |
+        echo "DEFAULT_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+        echo "DEFAULT_BRANCH set to $DEFAULT_BRANCH"
 
-    - name: MegaLinter
-      uses: nvuillam/mega-linter-runner@v5
+    - name: Print DEFAULT_BRANCH
+      run: echo "The DEFAULT_BRANCH is $DEFAULT_BRANCH"
+
+    - name: Super-linter
+      uses: super-linter/super-linter@v6.2.0
+      continue-on-error: true
       env:
-        ENABLE: PYTHON
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEFAULT_BRANCH: develop 
+        VALIDATE_ALL_CODEBASE: false
         VALIDATE_PYTHON_BLACK: true
         VALIDATE_PYTHON_ISORT: true
-        VALIDATE_PYTHON_FLAKE8: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
