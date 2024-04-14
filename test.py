@@ -1,14 +1,10 @@
-from django_elasticsearch_dsl.registries import registry
-from django_elasticsearch_dsl.signals import BaseSignalProcessor
-from django.db import models, transaction
-from django.dispatch import receiver
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.signals import request_finished
-
-
+from django.db import models, transaction
+from django.dispatch import receiver
+from django_elasticsearch_dsl.registries import registry
+from django_elasticsearch_dsl.signals import BaseSignalProcessor
 from .utilities import es_update_on_commit, es_delete_on_commit, write_es_changes
-
 
 
 @receiver(request_finished)
@@ -22,6 +18,7 @@ class ContainerSignalProcessor(BaseSignalProcessor):
     Allows for observing when saves/deletes fire and automatically updates the
     search engine appropriately.
     """
+
     EXCLUDE_RELATED_TYPES = {
         "platform",
         "policy",
@@ -44,9 +41,10 @@ class ContainerSignalProcessor(BaseSignalProcessor):
         # Update at end of transaction, so parent relations are updated
         def deleter():
             registry.delete_related(instance)
+
         # For relations, skip reindex if in type exclusion list
-        if sender._meta.model_name == 'containerrelationship':
-           if instance.to_container.type.name not in self.EXCLUDE_RELATED_TYPES:
+        if sender._meta.model_name == "containerrelationship":
+            if instance.to_container.type.name not in self.EXCLUDE_RELATED_TYPES:
                 transaction.on_commit(deleter)
         else:
             transaction.on_commit(deleter)
@@ -76,8 +74,8 @@ class TransactionSignalProcessor(ContainerSignalProcessor):
         es_update_on_commit(instance)
         # For relations, skip reindex if in type exclusion list
         if (
-            sender._meta.model_name == 'containerrelationship' and
-            instance.to_container.type.name in self.EXCLUDE_RELATED_TYPES
+            sender._meta.model_name == "containerrelationship"
+            and instance.to_container.type.name in self.EXCLUDE_RELATED_TYPES
         ):
             return
         # Bit of a reimplementation of registry.update_related()
@@ -102,8 +100,8 @@ class TransactionSignalProcessor(ContainerSignalProcessor):
     def handle_pre_delete(self, sender, instance, **kwargs):
         # For relations, skip reindex if in type exclusion list
         if (
-            sender._meta.model_name == "containerrelationship" and
-            instance.to_container.type.name in self.EXCLUDE_RELATED_TYPES
+            sender._meta.model_name == "containerrelationship"
+            and instance.to_container.type.name in self.EXCLUDE_RELATED_TYPES
         ):
             return
         # Bit of a reimplementation of registry.delete_related()
