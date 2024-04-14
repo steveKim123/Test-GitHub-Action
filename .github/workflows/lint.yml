@@ -25,7 +25,6 @@ jobs:
 
     - name: Run Super-linter
       uses: super-linter/super-linter@v6.2.0
-      continue-on-error: true # Run will complete regardless of errors
       env:
         DEFAULT_BRANCH: ${{ env.DEFAULT_BRANCH }} 
         VALIDATE_ALL_CODEBASE: false
