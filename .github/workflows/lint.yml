@@ -34,7 +34,7 @@ jobs:
         VALIDATE_PYTHON_FLAKE8: true
         VALIDATE_PYTHON_ISORT: true
         LINTER_RULES_PATH: .github/linters
-        PYTHON_BLACK_CONFIG_FILE: .flake8
+        PYTHON_FLAKE8_CONFIG_FILE: .flake8
         #PYTHON_FLAKE8_CONFIG_FILE: .flake8
         #LINTER_RULES_PATH: .github/linters_config_files/
         #PYTHON_\BLACK_CONFIG_FILE: linters_config_files/pyproject.toml
