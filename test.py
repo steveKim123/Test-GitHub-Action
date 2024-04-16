@@ -1,2 +1,2 @@
-result = (10
-        + 20) 
+result = (a
+          + b)
