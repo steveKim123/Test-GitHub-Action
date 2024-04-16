@@ -32,6 +32,6 @@ jobs:
         VALIDATE_ALL_CODEBASE: false
         VALIDATE_PYTHON_BLACK: true
         VALIDATE_PYTHON_ISORT: true
-        LINTER_RULES_PATH: .github/linters_config_files/hi
+        LINTER_RULES_PATH: .github/linters_config_files/
         #PYTHON_BLACK_CONFIG_FILE: linters_config_files/pyproject.toml
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
