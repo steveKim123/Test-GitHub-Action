@@ -25,7 +25,7 @@ jobs:
       run: echo "The DEFAULT_BRANCH is $DEFAULT_BRANCH"
 
     - name: Print DEFAULT_BRANCH2
-      run: echo "The DEFAULT_BRANCH is ${{ github.event.pull_request.base.ref }}
+      run: echo "The DEFAULT_BRANCH is ${{ github.event.pull_request.base.ref }}"
 
     - name: Super-linter
       uses: super-linter/super-linter@v6.2.0
