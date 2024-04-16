@@ -7,4 +7,4 @@ class BaseDynamicQuery(object):
     def set_children_by_query(self, parent_id, start_order):
         with transaction.atomic():
             child_relations = ContainerRelationship.objects.filter(con_id=parent_id)
-            print("child_relations", child_relations)
+            print("child_relations", child_relations) 
