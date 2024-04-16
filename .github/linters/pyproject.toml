@@ -1,4 +1,5 @@
 [tool.black]
+line-length = 84
 target-version = ['py39']  # Updated for Python 3.9 and up
 
 [tool.isort]
