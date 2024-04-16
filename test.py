@@ -1,12 +1,10 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.signals import request_finished
-from django.db import models, transaction   
-  
+from django.db import transaction
 
-from django.dispatch import receiver
-from django_elasticsearch_dsl.registries import registry
-from django_elasticsearch_dsl.signals import BaseSignalProcessor
+from .models import ContainerRelationship
 
 
-
-from .utilities import es_delete_on_commit, es_update_on_commit, write_es_changes 
+class BaseDynamicQuery(object):
+    def set_children_by_query(self, parent_id, start_order):
+        with transaction.atomic():
+            child_relations = ContainerRelationship.objects.filter(con_id=parent_id)
+            print("child_relations", child_relations)
