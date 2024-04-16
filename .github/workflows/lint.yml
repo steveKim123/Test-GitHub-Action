@@ -31,6 +31,7 @@ jobs:
         DEFAULT_BRANCH: ${{ env.DEFAULT_BRANCH }}
         VALIDATE_ALL_CODEBASE: false
         VALIDATE_PYTHON_BLACK: true
+        VALIDATE_PYTHON_FLAKE8: true
         VALIDATE_PYTHON_ISORT: true
         LINTER_RULES_PATH: .github/linters_config_files/
         #PYTHON_BLACK_CONFIG_FILE: linters_config_files/pyproject.toml
