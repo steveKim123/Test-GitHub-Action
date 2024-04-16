@@ -1,2 +1,2 @@
 [flake8]
-max-line-length = 84
+max-line-length = 83 
