@@ -1,2 +1,2 @@
-my_list = [1, 2, 3, 4]
-slice = my_list[1 : 4]
+result = (10
+        + 20) 
